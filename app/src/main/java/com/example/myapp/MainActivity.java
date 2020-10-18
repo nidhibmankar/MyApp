@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+//            Toast.makeText(this,"Awesome!", Toast.LENGTH_SHORT).show();
         eUsername = findViewById(R.id.username);
         ePassword = findViewById(R.id.password);
         eLogin = findViewById(R.id.btnLogin);
