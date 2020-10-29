@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapp.screens.Home;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -43,7 +44,7 @@ LinearLayout linearLayoutsignup;
         linearLayoutsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent newScreenIntent = new Intent(MainActivity.this, SignUp.class);
+                Intent newScreenIntent = new Intent(MainActivity.this, Home.class);
 //                newScreenIntent.putExtra("email",Username);
                 startActivity(newScreenIntent);
                 finish();
