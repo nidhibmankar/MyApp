@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -65,8 +66,8 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                databaseReference.removeValue();
 
-//                welcomeLayout.setVisibility(View.GONE);
-//                startLayout.setVisibility(View.VISIBLE);
+                welcomeLayout.setVisibility(View.GONE);
+                startLayout.setVisibility(View.VISIBLE);
             }
         });
 
@@ -89,6 +90,8 @@ public class Home extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
+                Log.d("ErrorOnDataCallBack", "Error:"+error);
 
             }
         });

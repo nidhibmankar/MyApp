@@ -25,6 +25,10 @@ LinearLayout linearLayoutsignup;
     Button eLogin;
     TextView etextView;
 
+
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
+
     String Username, Password;
 
     private static final String TAG = "MyActivity";
@@ -40,6 +44,31 @@ LinearLayout linearLayoutsignup;
         ePassword = findViewById(R.id.password);
         eLogin = findViewById(R.id.btnLogin);
         etextView = findViewById(R.id.login);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user != null){
+                    Intent intent = new Intent(MainActivity.this,Home.class);
+                    startActivity(intent);
+                    finish();
+
+                }
+                else {
+                    Intent signUPIntent = new Intent(MainActivity.this,SignUp.class);
+                    startActivity(signUPIntent);
+                    finish();
+                }
+            }
+        };
+
+
+
+
 
         linearLayoutsignup.setOnClickListener(new View.OnClickListener() {
             @Override
