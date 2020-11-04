@@ -22,8 +22,9 @@ public class SignUp extends AppCompatActivity {
     Button button;
     EditText emailText, passText;
 
-    private FirebaseAuth firebaseAuth;
+    FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
+
 
 
     @Override
@@ -31,21 +32,11 @@ public class SignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        firebaseAuth = FirebaseAuth.getInstance();
+//TODO: new c_pass ; validate email , password , mobile ,number;
         emailText = (EditText)findViewById(R.id.email);
         passText = (EditText)findViewById(R.id.SignUPpassword);
-
-
         button = (Button)findViewById(R.id.btnSignUp);
-
-        firebaseAuth = FirebaseAuth.getInstance();
-
-
-//        authStateListener = new FirebaseAuth.AuthStateListener() {
-//            @Override
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//            }
-//        };
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +52,9 @@ public class SignUp extends AppCompatActivity {
                                 if (task.isSuccessful()){
                                     Toast.makeText(SignUp.this, "Sign Up Success", Toast.LENGTH_SHORT).show();
                                 }
+                                else{
+                                    Toast.makeText(SignUp.this, "SignUP Error", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
 
@@ -75,9 +69,5 @@ public class SignUp extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
-    protected void onStart() {
-        firebaseAuth.addAuthStateListener(authStateListener);
-        super.onStart();
-    }
+
 }
