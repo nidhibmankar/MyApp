@@ -16,11 +16,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
+    EditText emailText, passText, mobileText, usernameText,cpasswordText;
     Button button;
-    EditText emailText, passText;
 
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
@@ -33,17 +38,28 @@ public class SignUp extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         firebaseAuth = FirebaseAuth.getInstance();
-//TODO: new c_pass ; validate email , password , mobile ,number;
-        emailText = (EditText)findViewById(R.id.email);
-        passText = (EditText)findViewById(R.id.SignUPpassword);
+
+    //TODO: new c_pass ; validate email , password , mobile number;
+        usernameText = (EditText)findViewById(R.id.username);   //username
+        emailText = (EditText)findViewById(R.id.email);         //email
+        mobileText = (EditText)findViewById(R.id.mobile);       //mobile
+        passText = (EditText)findViewById(R.id.SignUPpassword); //password
+        cpasswordText = (EditText)findViewById(R.id.SignUPpassword); //confim password
+
+
+
+
         button = (Button)findViewById(R.id.btnSignUp);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                String email = emailText.getText().toString();
-                String pass = passText.getText().toString();
+                final String email = emailText.getText().toString();
+                final String pass = passText.getText().toString();
+                final String mobile = mobileText.getText().toString();
+                final String username = usernameText.getText().toString();
+
 
                 firebaseAuth.createUserWithEmailAndPassword(email,pass)
                         .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
@@ -51,7 +67,20 @@ public class SignUp extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
                                     Toast.makeText(SignUp.this, "Sign Up Success", Toast.LENGTH_SHORT).show();
-                                }
+                                    // Get current Userid
+                                    String Userid = firebaseAuth.getCurrentUser().getUid();
+                                    // Get Database reference of current user against userid
+                                    DatabaseReference Current_User_Referance = FirebaseDatabase.getInstance().getReference().child("Users").child(Userid);
+                                    // Create Map to read and write
+                                    Map userPost = new HashMap();
+                                    userPost.put("name",username);
+                                    userPost.put("email",email);
+                                    userPost.put("mobile",mobile);
+                                    userPost.put("password",pass);
+
+                                    // Save data to database
+                                    Current_User_Referance.setValue(userPost);
+                                    }
                                 else{
                                     Toast.makeText(SignUp.this, "SignUP Error", Toast.LENGTH_SHORT).show();
                                 }
