@@ -67,10 +67,13 @@ public class SignUp extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
                                     Toast.makeText(SignUp.this, "Sign Up Success", Toast.LENGTH_SHORT).show();
+
                                     // Get current Userid
                                     String Userid = firebaseAuth.getCurrentUser().getUid();
+
                                     // Get Database reference of current user against userid
                                     DatabaseReference Current_User_Referance = FirebaseDatabase.getInstance().getReference().child("Users").child(Userid);
+
                                     // Create Map to read and write
                                     Map userPost = new HashMap();
                                     userPost.put("name",username);
