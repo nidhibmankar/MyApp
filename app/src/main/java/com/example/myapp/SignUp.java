@@ -34,8 +34,6 @@ public class SignUp extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +48,6 @@ public class SignUp extends AppCompatActivity {
         passText = (EditText)findViewById(R.id.SignUPpassword); //password
         cpasswordText = (EditText)findViewById(R.id.SignUPpassword); //confim password
 
-
-
-
         button = (Button)findViewById(R.id.btnSignUp);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -64,8 +59,7 @@ public class SignUp extends AppCompatActivity {
                 final String mobile = mobileText.getText().toString();
                 final String username = usernameText.getText().toString();
 
-
-               Query usernameQuery = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("username").equalTo(username);
+                Query usernameQuery = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("username").equalTo(username);
                usernameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
                    @Override
                    public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -75,34 +69,8 @@ public class SignUp extends AppCompatActivity {
                        }
                        else
                        {
-                           firebaseAuth.createUserWithEmailAndPassword(email,pass)
-                                   .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
-                                       @Override
-                                       public void onComplete(@NonNull Task<AuthResult> task) {
-                                           if (task.isSuccessful()){
-                                               Toast.makeText(SignUp.this, "Sign Up Success", Toast.LENGTH_SHORT).show();
+                           chkemail(email,pass,mobile,username);
 
-                                               // Get current Userid
-                                               String Userid = firebaseAuth.getCurrentUser().getUid();
-
-                                               // Get Database reference of current user against userid
-                                               DatabaseReference Current_User_Referance = FirebaseDatabase.getInstance().getReference().child("Users").child(Userid);
-
-                                               // Create Map to read and write
-                                               Map userPost = new HashMap();
-                                               userPost.put("username",username);
-                                               userPost.put("email",email);
-                                               userPost.put("mobile",mobile);
-                                               userPost.put("password",pass);
-
-                                               // Save data to database
-                                               Current_User_Referance.setValue(userPost);
-                                           }
-                                           else{
-                                               Toast.makeText(SignUp.this, "SignUP Error", Toast.LENGTH_SHORT).show();
-                                           }
-                                       }
-                                   });
                        }
                    }
 
@@ -112,11 +80,61 @@ public class SignUp extends AppCompatActivity {
                    }
                });
 
+              }
+        });
+    }
 
+    private void chkemail(final String email, final String pass, final String mobile, final String username) {
+
+        Query useremailQuery = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("email").equalTo(email);
+        useremailQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getChildrenCount() > 0)
+                {
+                    Toast.makeText(SignUp.this, "Username already exist", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    firebaseAuth.createUserWithEmailAndPassword(email,pass)
+                            .addOnCompleteListener(SignUp.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()){
+                                        Toast.makeText(SignUp.this, "Sign Up Success", Toast.LENGTH_SHORT).show();
+
+                                        // Get current Userid
+                                        String Userid = firebaseAuth.getCurrentUser().getUid();
+
+                                        // Get Database reference of current user against userid
+                                        DatabaseReference Current_User_Referance = FirebaseDatabase.getInstance().getReference().child("Users").child(Userid);
+
+                                        // Create Map to read and write
+                                        Map userPost = new HashMap();
+                                        userPost.put("username",username);
+                                        userPost.put("email",email);
+                                        userPost.put("mobile",mobile);
+                                        userPost.put("password",pass);
+
+                                        // Save data to database
+                                        Current_User_Referance.setValue(userPost);
+                                    }
+                                    else{
+                                        Toast.makeText(SignUp.this, "SignUP Error", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-    }
+
+        }
 
     @Override
     public void onBackPressed() {
