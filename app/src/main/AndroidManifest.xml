@@ -12,11 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screens.ProfileActivity"></activity>
-        <activity android:name=".screens.Home"></activity>
+        <activity android:name=".SplashActivity"></activity>
+        <activity android:name=".screens.ProfileActivity" />
+        <activity android:name=".screens.Home" />
         <activity
             android:name=".SignUp"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
