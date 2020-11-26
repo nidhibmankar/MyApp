@@ -19,8 +19,8 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent mainIntent = new Intent(SplashActivity.this,MainActivity.class);
-                SplashActivity.this.startActivity(mainIntent);
-                SplashActivity.this.finish();
+                startActivity(mainIntent);
+                finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
     }
