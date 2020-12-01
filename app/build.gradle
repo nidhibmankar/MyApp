@@ -27,7 +27,12 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    // Gif View
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
+    // Recycler View
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    // Card View
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -43,6 +48,8 @@ dependencies {
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:26.0.0')
 
+    // Recycler View
+    //implementation 'com.android.support:recyclerview-v7:26.1.0'
 
     //recycler view
 
