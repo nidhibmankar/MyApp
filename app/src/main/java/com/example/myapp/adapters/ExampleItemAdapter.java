@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +20,14 @@ import java.util.ArrayList;
 public class ExampleItemAdapter extends RecyclerView.Adapter<ExampleItemAdapter.ExampleViewHolder> {
     private Context mContext;
     private ArrayList<ExampleItemClass> mExampleList;
+
+//    variable for interface
+    private OnItemClickListener mListner;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
     public ExampleItemAdapter(Context context, ArrayList<ExampleItemClass> exampleList)
     {
         mContext = context;
@@ -54,12 +63,25 @@ public class ExampleItemAdapter extends RecyclerView.Adapter<ExampleItemAdapter.
         public TextView mCreatorName;
         public TextView mLikes;
 
-        public ExampleViewHolder(View itemView)
+        public ExampleViewHolder(final View itemView)
         {
             super(itemView);
             mImageView = itemView.findViewById(R.id.imageViewItem);
             mCreatorName = itemView.findViewById(R.id.userTextView);
             mLikes = itemView.findViewById(R.id.likes);
+
+//            action on item view
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(mListner != null){
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION) {
+                            mListner.onItemClick(position);
+                        }
+                    }
+                }
+            });
 
         }
 

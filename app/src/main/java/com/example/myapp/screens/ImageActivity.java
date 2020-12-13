@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,14 +33,22 @@ public class ImageActivity extends AppCompatActivity {
     private RequestQueue mRequestQue;
     private ApiClass apiClass;
 
+//    variable to pass data
+    public static final String EXTRA_URL = "imageUrl";
+    public static final String EXTRA_CREATOR = "creatorName";
+    public static final String EXTRA_LIKE = "like";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image);
+
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this ));
+
         exampleItemClassesList = new ArrayList<>();
         mRequestQue = Volley.newRequestQueue(this);
 
@@ -48,7 +58,7 @@ public class ImageActivity extends AppCompatActivity {
 
     private void parseJSON() {
         //https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true
-        String url = apiClass.baseUrl;
+        String url = "https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true";
         // Crating JSON Request
         JsonObjectRequest mJSONRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
@@ -81,5 +91,18 @@ public class ImageActivity extends AppCompatActivity {
         );
         mRequestQue.add(mJSONRequest);
     }
+
+    public void onItemClick(int position){
+
+        Intent detailsIntent = new Intent(ImageActivity.this,DetailActivity.class);
+        ExampleItemClass clickedItem = exampleItemClassesList.get(position);
+
+        detailsIntent.putExtra(EXTRA_URL, clickedItem.getMimageUrl());
+        detailsIntent.putExtra(EXTRA_CREATOR, clickedItem.getMcreatorName() );
+        detailsIntent.putExtra(EXTRA_LIKE, clickedItem.getMlikes());
+
+        startActivity(detailsIntent);
+    }
+
 }
 

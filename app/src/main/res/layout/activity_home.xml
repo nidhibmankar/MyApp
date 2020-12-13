@@ -19,6 +19,17 @@
         app:layout_constraintVertical_bias="0.408" />
 
     <Button
+        android:id="@+id/imageViewActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:text="imageViewActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.557"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
         android:id="@+id/logoutUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

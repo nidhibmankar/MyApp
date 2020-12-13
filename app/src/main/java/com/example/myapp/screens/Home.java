@@ -23,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Home extends AppCompatActivity {
-    Button logoutButton;
+    Button logoutButton, imageActivityButton;
     private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
@@ -35,6 +35,16 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         logoutButton = (Button) findViewById(R.id.logoutUser);
+        imageActivityButton = (Button)findViewById(R.id.imageViewActivity);
+
+        imageActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent imgActivityIntent = new Intent(Home.this, ImageActivity.class);
+                startActivity(imgActivityIntent);
+
+            }
+        });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
