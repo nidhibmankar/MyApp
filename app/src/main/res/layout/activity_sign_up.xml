@@ -75,6 +75,7 @@
         android:textColorHint="#04243d"
         android:drawableLeft="@drawable/ic_baseline_mail_outline_24"
         android:hint=" Email Address"
+        android:textColor="@color/colorPrimaryDark"
         android:imeOptions="actionNext"
         android:textSize="22sp" />
 
@@ -86,6 +87,7 @@
         android:textColorHint="#04243d"
         android:drawableLeft="@drawable/ic_baseline_local_phone_24"
         android:hint=" Mobile Number"
+        android:textColor="@color/colorPrimaryDark"
         android:imeOptions="actionNext"
         android:textSize="22sp" />
 
@@ -96,6 +98,7 @@
         android:layout_marginTop="12dp"
         android:imeOptions="actionDone"
         android:textColorHint="#04243d"
+        android:textColor="@color/colorPrimaryDark"
         android:drawableLeft="@drawable/ic_baseline_lock1_24"
         android:hint=" Password"
         android:textSize="22sp"
@@ -108,8 +111,9 @@
         android:layout_marginTop="12dp"
         android:imeOptions="actionDone"
         android:textColorHint="#04243d"
+        android:textColor="@color/colorPrimaryDark"
         android:drawableLeft="@drawable/ic_baseline_lock1_24"
-        android:hint="C Password"
+        android:hint=" C Password"
         android:textSize="22sp"
         />
 
