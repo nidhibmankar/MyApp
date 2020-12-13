@@ -50,7 +50,7 @@ public class ImageActivity extends AppCompatActivity {
         //https://pixabay.com/api/?key=5303976-fd6581ad4ac165d1b75cc15b3&q=kitten&image_type=photo&pretty=true
         String url = apiClass.baseUrl;
         // Crating JSON Request
-        JsonObjectRequest mRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+        JsonObjectRequest mJSONRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -74,10 +74,12 @@ public class ImageActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
 
             }
         }
         );
+        mRequestQue.add(mJSONRequest);
     }
 }
 
